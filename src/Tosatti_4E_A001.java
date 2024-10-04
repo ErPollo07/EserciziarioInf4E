@@ -13,22 +13,23 @@ public class Tosatti_4E_A001 {
         final String[] strings = {
                 "NUMERI RANDOM",
                 "Genera numeri casuali",    // 1
-                "Inserimento",              // 2
+                "Visualizza",               // 2
                 "Cerca numero",             // 3
                 "Cancella numero con 0",    // 4
                 "Cancella numero",          // 5
+                "Ordina (selection)",       // 6
                 "Esci",
         };
 
 
-        final int NMAX = 53, RANGE = 100;
+        final int NMAX = 20, RANGE = 10;
         int[] numbers = new int[NMAX];
         boolean exit = true;
 
         do {
             switch (menu(strings, scanner)) {
                 case 1:
-                    numbers = generateWithoutDuplicate(RANGE, NMAX);
+                    numbers = generate(RANGE, NMAX);
 
                     System.out.println("Array = " + Arrays.toString(numbers));
 
@@ -69,7 +70,11 @@ public class Tosatti_4E_A001 {
                     deleteNumber(numbers, deleteNumber);
 
                     break;
+                case 6:
 
+                    selectionSort(numbers);
+
+                    break;
                 default:
                     exit = false;
                     break;
@@ -97,7 +102,7 @@ public class Tosatti_4E_A001 {
                 n[i] = random.nextInt(range);
 
                 // check if the number is already insert
-            } while (check[n[i]]);
+            } while (check[n[i] - 1]);
 
             check[i] = true;
         }
@@ -152,8 +157,26 @@ public class Tosatti_4E_A001 {
             }
         }
     }
-}
 
-/*
-25/09/2024 : ADD method to generate numbers without duplicates ; ADD method to view arrays of numbers in rows
- */
+    private static void selectionSort(int[] arr) {
+
+        int currentPos = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            currentPos = i;
+
+            // find the minimun number
+            for (int j = i; j < arr.length; j++) {
+                if (arr[j] < arr[currentPos]) {
+                    currentPos = j;
+                }
+            }
+
+            if (currentPos != i) {
+                int t = arr[i];
+                arr[i] = arr[currentPos];
+                arr[currentPos] = t;
+            }
+        }
+    }
+}
