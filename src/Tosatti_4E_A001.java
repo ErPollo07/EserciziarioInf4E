@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import static Util.Tools.menu;
 
-public class Main {
+public class Tosatti_4E_A001 {
     static Scanner scanner = new Scanner(System.in);
     static Random random = new Random();
 
@@ -12,8 +12,11 @@ public class Main {
 
         final String[] strings = {
                 "NUMERI RANDOM",
-                "Genera numeri casuali",
-                "Inserimento",
+                "Genera numeri casuali",    // 1
+                "Inserimento",              // 2
+                "Cerca numero",             // 3
+                "Cancella numero con 0",    // 4
+                "Cancella numero",          // 5
                 "Esci",
         };
 
@@ -48,6 +51,22 @@ public class Main {
                     } else {
                         System.out.println("Numero non trovato.");
                     }
+
+                    break;
+                case 4:
+
+                    System.out.println("Inserisci il numero che vuoi sostituire con 0: ");
+                    int numberToSearch = Integer.parseInt(scanner.next());
+
+                    deleteNumberWithZero(numbers, numberToSearch);
+
+                    break;
+                case 5:
+
+                    System.out.println("Inserisci il numero che vuoi cancellare: ");
+                    int deleteNumber = Integer.parseInt(scanner.next());
+
+                    deleteNumber(numbers, deleteNumber);
 
                     break;
 
@@ -111,6 +130,27 @@ public class Main {
         }
 
         return -1;
+    }
+
+    private static void deleteNumberWithZero(int[] arr, int number) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == number) {
+                arr[i] = 0;
+                break;
+            }
+        }
+    }
+
+    private static void deleteNumber(int[] arr, int number) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == number) {
+                for (int j = i; j < arr.length - 1; i++) {
+                    arr[j] = arr[j + 1];
+                }
+
+                break;
+            }
+        }
     }
 }
 
