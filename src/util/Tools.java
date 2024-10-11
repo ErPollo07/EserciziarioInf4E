@@ -1,4 +1,4 @@
-package Util;
+package util;
 
 import java.util.Scanner;
 public class Tools {
@@ -20,11 +20,10 @@ public class Tools {
         }
     }
 
-    public static int menu(String options[], Scanner scanner) {// parametri formali
+    public static int menu(String[] options, Scanner scanner) {// parametri formali
         int scelta;
 
         do {
-            // clrScr();
             for (int i = 0; i < options.length; i++) {
                 System.out.print("-");
             }
@@ -40,16 +39,15 @@ public class Tools {
             for (int i = 1; i < options.length; i++) {
                 System.out.println("[" + i + "]" + " " + options[i]);
             }
-            scelta = (Integer.parseInt(scanner.nextLine()));
-            //tastiera.nextLine();
+            // todo: put try catch
+            scelta = (Integer.parseInt(scanner.next()));
 
             if ((scelta < 1) || (scelta > options.length - 1)) {
                 System.out.println("Opzione Sbagliata");
-                // wait(2000);
             }
         }
         while ((scelta < 1) || (scelta > options.length - 1));
-        //tastiera.nextLine();
+
         return scelta;
     }
 

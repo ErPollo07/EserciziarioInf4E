@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-import static Util.Tools.menu;
+import static util.Tools.menu;
 
 public class Tosatti_4E_A001 {
     static Scanner scanner = new Scanner(System.in);
