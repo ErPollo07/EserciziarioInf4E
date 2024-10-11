@@ -39,8 +39,13 @@ public class Tools {
             for (int i = 1; i < options.length; i++) {
                 System.out.println("[" + i + "]" + " " + options[i]);
             }
-            // todo: put try catch
-            scelta = (Integer.parseInt(scanner.next()));
+
+            try {
+                scelta = (Integer.parseInt(scanner.next()));
+            } catch (Exception e) {
+                System.out.println("Valore invalido");
+                return -1;
+            }
 
             if ((scelta < 1) || (scelta > options.length - 1)) {
                 System.out.println("Opzione Sbagliata");

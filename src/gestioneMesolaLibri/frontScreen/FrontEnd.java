@@ -22,17 +22,27 @@ public class FrontEnd {
 
         Genere[] generi = Genere.values();
         String[] menuData = new String[generi.length + 1];
+        menuData[0] = "Generi";
         for (int i = 0; i < generi.length; i++) {
             menuData[i + 1] = generi[i].toString();
         }
-        int genereIndex = Tools.menu(menuData, scanner) - 1;
+        int genereIndex;
+        do {
+            genereIndex = Tools.menu(menuData, scanner) - 1;
+        } while (genereIndex == -1);
         output.tipologia = generi[genereIndex];
 
-        // todo put try catch per il local date
-        System.out.println("Inserisci la data di pubblicazione (dd-mm-yyyy): ");
-        String dateInput = scanner.next();
-        output.dataPubblicazione = LocalDate.parse(dateInput, output.formattazioneData);
+        while (true) {
+            try {
+                System.out.println("Inserisci la data di pubblicazione (dd-mm-yyyy): ");
+                String dateInput = scanner.next();
+                output.dataPubblicazione = LocalDate.parse(dateInput, output.formattazioneData);
 
+                break;
+            } catch (Exception e) {
+                System.out.println("\t<ATTENZIONE> Valore data invalido.\n\tInserire una dato con formattazione specificata tra parentesi.");
+            }
+        }
 
         return output;
     }

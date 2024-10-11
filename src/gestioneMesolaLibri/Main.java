@@ -4,6 +4,7 @@ import gestioneMesolaLibri.frontScreen.FrontEnd;
 import gestioneMesolaLibri.mensola.Libro;
 import util.Tools;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -22,6 +23,7 @@ public class Main {
         Libro[] books = new Libro[N];
         int indexBooks = 0;
         boolean exit = false;
+        Objects aa;
 
         do {
             switch (Tools.menu(menuOptions, scanner)) {
@@ -42,6 +44,14 @@ public class Main {
 
                     break;
                 case 2:
+
+                    for (Libro book : books) {
+                        if (book == null) {
+                            break;
+                        }
+
+                        System.out.println(book.toString());
+                    }
 
                     break;
                 default:
