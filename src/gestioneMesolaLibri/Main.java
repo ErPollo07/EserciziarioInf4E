@@ -23,7 +23,6 @@ public class Main {
         Libro[] books = new Libro[N];
         int indexBooks = 0;
         boolean exit = false;
-        Objects aa;
 
         do {
             switch (Tools.menu(menuOptions, scanner)) {
