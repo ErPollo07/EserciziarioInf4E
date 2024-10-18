@@ -4,7 +4,6 @@ import gestioneMesolaLibri.frontScreen.FrontEnd;
 import gestioneMesolaLibri.mensola.Libro;
 import util.Tools;
 
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -16,6 +15,9 @@ public class Main {
                 "Mensola libri",
                 "Inserimento",
                 "Visualizza",
+                "Modifica numero di pagine di un libro",
+                "Cancella un libro",
+                "Visuallizza libri di un autore",
                 "Esci",
         };
 
@@ -23,6 +25,11 @@ public class Main {
         Libro[] books = new Libro[N];
         int indexBooks = 0;
         boolean exit = false;
+
+        // Modifica numero pagine
+        Libro bookMod;
+        String titleMod, authorMod;
+        int indexMod, pageNumMod;
 
         do {
             switch (Tools.menu(menuOptions, scanner)) {
@@ -35,7 +42,7 @@ public class Main {
                     Libro newBook = FrontEnd.leggiLibro(scanner);
 
                     if (!validateNewBook(books, newBook)) {
-                        System.out.println("\t<ATTENZIONE> Il libro non puo' avere titolo e autore ugali a un altro libro in raccolta.\n\t I dati sono stati scartati");
+                        System.out.println("\t<ATTENZIONE> Il libro non puo' avere titolo e autore ugali a un altro libro in raccolta.\n\tI dati sono stati scartati");
                         break;
                     }
 
@@ -51,6 +58,44 @@ public class Main {
 
                         System.out.println(book.toString());
                     }
+
+                    break;
+
+                case 3: /* Modifica numero pagine */
+
+                    // Take title and author
+                    System.out.println("Inserisci il titolo del libro a cui vuoi modificare le pagine: ");
+                    titleMod = scanner.next();
+
+                    System.out.println("Inserisci il nome dell'autore del libro a cui vuoi modificare le pagine: ");
+                    authorMod = scanner.next();
+
+                    // Get the index of the equal book
+                    indexMod = get(books, titleMod, authorMod);
+                    if (indexMod == -1) {
+                        System.out.println("I dati inseriti (Titolo: " + titleMod + ", Autore: " + authorMod + ") non corrispondono a nessun libro in libreria.");
+                        break;
+                    }
+
+                    bookMod = books[indexMod];
+
+                    // Take the new number of pages
+
+                    while (true) {
+                        try {
+                            System.out.println("Inserisci il numero di pagine: ");
+                            pageNumMod = Integer.parseInt(scanner.next());
+
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("\t<ATTENZIONE> Inserire solo numeri");
+                        } catch (Exception e) {
+                            System.out.println("\t<ATTENZIONE> Dato invalido");
+                        }
+                    }
+
+                    // Modify the number of pages
+                    bookMod.numeroPagine = pageNumMod;
 
                     break;
                 default:
@@ -71,5 +116,36 @@ public class Main {
         }
 
         return true;
+    }
+
+    /**
+     * Cicle through all the books in the array.<br>
+     * When it finds the books[i] equals to the bookToSearch (define in the scope), return i. <br>
+     * If the method find nothing return -1.
+     *
+     * @param books array to cicle
+     * @param title title of the book to search
+     * @param author author of the book to search
+     * @return The index if the bookToSearch is in the array else return -1
+     */
+    private static int get(Libro[] books, String title, String author) {
+        Libro bookToSearch = new Libro();
+
+        bookToSearch.titolo = title;
+        bookToSearch.autore = author;
+
+        // Cicle through all the books
+        for (int i = 0; i < books.length; i++) {
+            if (books[i] == null) {
+                return -1;
+            }
+
+            // Check if the books[i] is equals to bookToSearch
+            if (books[i].equals(bookToSearch)) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

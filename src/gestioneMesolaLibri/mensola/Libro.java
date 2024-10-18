@@ -18,6 +18,10 @@ public class Libro {
         return this.autore.equals(book.autore) && this.titolo.equals(book.titolo);
     }
 
+    public int compare(Libro book) {
+        return this.titolo.compareTo(book.titolo);
+    }
+
     @Override
     public String toString() {
         return String.format("Autore: %s; Titolo: %s; Numero pagine: %d; Prezzo: %f; Genere: %s; Data: %s\n",
