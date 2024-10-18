@@ -34,6 +34,10 @@ public class Main {
         // Cancella un libro
         String titleDel, authorDel;
 
+        // Visuallizza libri di un autore
+        String authorView;
+
+
         do {
             switch (Tools.menu(menuOptions, scanner)) {
                 case 1:
@@ -116,6 +120,14 @@ public class Main {
                     } else {
                         System.out.println("Il libro non e' presente nella libreria");
                     }
+
+                    break;
+                case 5:
+
+                    System.out.println("Inserisci il nome dell'autore di cui vuoi vedere i libri: ");
+                    authorView = scanner.next();
+
+                    viewAuthor(books, authorView);
 
                     break;
                 default:
@@ -201,5 +213,13 @@ public class Main {
         }
 
         return false;
+    }
+
+    private static void viewAuthor(Libro[] books, String author) {
+        for (int i = 0; i < books.length && books[i] != null; i++) {
+            if (books[i].autore.equals(author)) {
+                System.out.println(books[i].toString());
+            }
+        }
     }
 }
