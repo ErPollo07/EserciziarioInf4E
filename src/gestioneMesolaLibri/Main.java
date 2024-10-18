@@ -31,6 +31,9 @@ public class Main {
         String titleMod, authorMod;
         int indexMod, pageNumMod;
 
+        // Cancella un libro
+        String titleDel, authorDel;
+
         do {
             switch (Tools.menu(menuOptions, scanner)) {
                 case 1:
@@ -98,6 +101,23 @@ public class Main {
                     bookMod.numeroPagine = pageNumMod;
 
                     break;
+
+                case 4: /* Cancella un libro */
+                    // Take title and author
+                    System.out.println("Inserisci il titolo del libro a cui vuoi modificare le pagine: ");
+                    titleDel = scanner.next();
+
+                    System.out.println("Inserisci il nome dell'autore del libro a cui vuoi modificare le pagine: ");
+                    authorDel = scanner.next();
+
+                    if (delete(books, titleDel, authorDel)) {
+                        System.out.println("Il libro e' stato eliminato");
+                        indexBooks--;
+                    } else {
+                        System.out.println("Il libro non e' presente nella libreria");
+                    }
+
+                    break;
                 default:
                     exit = true;
             }
@@ -123,8 +143,8 @@ public class Main {
      * When it finds the books[i] equals to the bookToSearch (define in the scope), return i. <br>
      * If the method find nothing return -1.
      *
-     * @param books array to cicle
-     * @param title title of the book to search
+     * @param books  array to cicle
+     * @param title  title of the book to search
      * @param author author of the book to search
      * @return The index if the bookToSearch is in the array else return -1
      */
@@ -147,5 +167,39 @@ public class Main {
         }
 
         return -1;
+    }
+
+    /**
+     * The method delete an element of {@code books} param.
+     * The method search in the array, if the book with title and author
+     * equals to the one passed as param, delete it and return true.
+     * If there isn't the book return false.
+     *
+     * @param books array to search
+     * @param title title of the book to delete
+     * @param author author of the book to delete
+     * @return true if the book can be deleted ; false if there isn't the book
+     */
+    private static boolean delete(Libro[] books, String title, String author) {
+
+        Libro bookToDel = new Libro();
+
+        bookToDel.titolo = title;
+        bookToDel.autore = author;
+
+        // Cycle through all the books
+        for (int i = 0; i < books.length && books[i] != null; i++) {
+
+            // Check if the books[i] is equals to bookToDel
+            if (books[i].equals(bookToDel)) {
+                for (int j = i; j < books.length - 1 && books[j] != null; j++) {
+                    books[j] = books[j + 1];
+                }
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

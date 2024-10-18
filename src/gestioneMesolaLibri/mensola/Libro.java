@@ -13,7 +13,6 @@ public class Libro {
     public LocalDate dataPubblicazione;
     public DateTimeFormatter formattazioneData = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-
     public boolean equals(Libro book) {
         return this.autore.equals(book.autore) && this.titolo.equals(book.titolo);
     }
