@@ -1,7 +1,7 @@
-package gestioneMesolaLibri.frontScreen;
+package frontScreen;
 
-import gestioneMesolaLibri.mensola.Genere;
-import gestioneMesolaLibri.mensola.Libro;
+import mensola.Genere;
+import mensola.Libro;
 import util.Tools;
 
 import java.time.LocalDate;
@@ -45,5 +45,13 @@ public class FrontEnd {
         }
 
         return output;
+    }
+
+    public static void viewAuthor(Libro[] books, String author) {
+        for (int i = 0; i < books.length && books[i] != null; i++) {
+            if (books[i].autore.equals(author)) {
+                System.out.println(books[i].toString());
+            }
+        }
     }
 }
