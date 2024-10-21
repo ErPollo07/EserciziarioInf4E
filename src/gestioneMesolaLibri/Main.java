@@ -1,7 +1,5 @@
-package gestioneMesolaLibri;
-
-import gestioneMesolaLibri.frontScreen.FrontEnd;
-import gestioneMesolaLibri.mensola.Libro;
+import frontScreen.FrontEnd;
+import mensola.Libro;
 import util.Tools;
 
 import java.util.Scanner;
@@ -129,7 +127,7 @@ public class Main {
                     System.out.println("Inserisci il nome dell'autore di cui vuoi vedere i libri: ");
                     authorView = scanner.nextLine();
 
-                    viewAuthor(books, authorView);
+                    FrontEnd.viewAuthor(books, authorView);
 
                     break;
                 case 6: /* Visuallizza valore totale dei libri di un certo autore */
@@ -245,6 +243,8 @@ public class Main {
                 return true;
             }
 
+            // If book is equal to a book in the array
+            // return false because the new book isn't valid
             if (book.equals(newBook)) {
                 return false;
             }
@@ -254,7 +254,7 @@ public class Main {
     }
 
     /**
-     * Cicle through all the books in the array.<br>
+     * Cycle through all the books in the array.<br>
      * When it finds the books[i] equals to the bookToSearch (define in the scope), return i. <br>
      * If the method find nothing return -1.
      *
@@ -270,11 +270,7 @@ public class Main {
         bookToSearch.autore = author;
 
         // Cicle through all the books
-        for (int i = 0; i < books.length; i++) {
-            if (books[i] == null) {
-                return -1;
-            }
-
+        for (int i = 0; i < books.length && books[i] != null; i++) {
             // Check if the books[i] is equals to bookToSearch
             if (books[i].equals(bookToSearch)) {
                 return i;
@@ -316,13 +312,5 @@ public class Main {
         }
 
         return false;
-    }
-
-    private static void viewAuthor(Libro[] books, String author) {
-        for (int i = 0; i < books.length && books[i] != null; i++) {
-            if (books[i].autore.equals(author)) {
-                System.out.println(books[i].toString());
-            }
-        }
     }
 }
