@@ -139,7 +139,7 @@ public class Main {
 
                     double val;
                     if ((val = getPriceOfAuthor(books, authorView)) == 0) {
-                        System.out.println("L'autore non ha libri in libreria");
+                        System.out.println("L'autore '" + authorView + "' non ha libri in libreria");
                         break;
                     }
 
@@ -147,6 +147,26 @@ public class Main {
 
                     break;
                 case 7: /* Visuallizza le posizioni nella mensola dei libri di un certo autore */
+
+                    System.out.println("Inserisci il nome dell'autore di cui vuoi vedere i libri: ");
+                    scanner.nextLine();
+                    authorView = scanner.nextLine();
+
+                    int[] pos = getBookPosWithAuthor(books, authorView);
+
+                    if (pos[0] == -1) {
+                        System.out.println("L'autore '" + authorView + "' non ha libri in libreria");
+                        break;
+                    }
+
+                    System.out.print("Le posizioni dei libri nella libreria di '" + authorView + "' sono: ");
+
+                    for (int p : pos) {
+                        System.out.print(p + " ");
+                    }
+
+                    System.out.println();
+
                     break;
                 default:
                     exit = true;
@@ -155,13 +175,56 @@ public class Main {
     }
 
     /**
-     * The method calculates the total price of all the books by a given author.
-     * If there isn't any book with the given author the method returns -1.
+     * The method returns an array of int which indicates the positions
+     * in the given array of the books with the given author.
+     * If there isn't any books the given author the method returns
+     * an array with the first value set to -1
      *
      * @param books Array where to search for the books.
      * @param author author to search for.
+     * @return an array of position of the books that have the given author.
+     *         If there aren't books with the given author then it returns an array with the first value set to -1
+     */
+    private static int[] getBookPosWithAuthor(Libro[] books, String author) {
+
+        int counter = 0;
+
+        for (int i = 0; i < books.length && books[i] != null; i++) {
+            if (books[i].autore.equals(author)) {
+                counter++;
+            }
+        }
+
+        // If the counter is 0 (so there isn't any book with the given author)
+        // return an array with the first value equals to -1
+        if (counter == 0) {
+            int[] p = new int[1];
+
+            p[0] = -1;
+
+            return p;
+        }
+
+        int[] pos = new int[counter];
+        int iPos = 0;
+
+        for (int i = 0; i < books.length && books[i] != null; i++) {
+            if (books[i].autore.equals(author)) {
+                pos[iPos++] = i;
+            }
+        }
+
+        return pos;
+    }
+
+    /**
+     * The method calculates the total price of all the books by a given author.
+     * If there isn't any book with the given author the method returns -1.
+     *
+     * @param books  Array where to search for the books.
+     * @param author author to search for.
      * @return -1 if there isn't any book with the given author, <br>
-     *         else return the total price of all the books by a given author.
+     * else return the total price of all the books by a given author.
      */
     private static double getPriceOfAuthor(Libro[] books, String author) {
         double val = 0;
@@ -173,7 +236,6 @@ public class Main {
                 val += book.numeroPagine * book.costoPagina;
             }
         }
-
         return val;
     }
 
@@ -228,8 +290,8 @@ public class Main {
      * equals to the one passed as param, delete it and return true.
      * If there isn't the book return false.
      *
-     * @param books array to search
-     * @param title title of the book to delete
+     * @param books  array to search
+     * @param title  title of the book to delete
      * @param author author of the book to delete
      * @return true if the book can be deleted ; false if there isn't the book
      */
