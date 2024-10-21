@@ -18,6 +18,8 @@ public class Main {
                 "Modifica numero di pagine di un libro",
                 "Cancella un libro",
                 "Visuallizza libri di un autore",
+                "Visuallizza valore totale dei libri di un certo autore",
+                "Visuallizza le posizioni nella mensola dei libri di un certo autore",
                 "Esci",
         };
 
@@ -72,10 +74,10 @@ public class Main {
 
                     // Take title and author
                     System.out.println("Inserisci il titolo del libro a cui vuoi modificare le pagine: ");
-                    titleMod = scanner.next();
+                    titleMod = scanner.nextLine();
 
                     System.out.println("Inserisci il nome dell'autore del libro a cui vuoi modificare le pagine: ");
-                    authorMod = scanner.next();
+                    authorMod = scanner.nextLine();
 
                     // Get the index of the equal book
                     indexMod = get(books, titleMod, authorMod);
@@ -91,7 +93,7 @@ public class Main {
                     while (true) {
                         try {
                             System.out.println("Inserisci il numero di pagine: ");
-                            pageNumMod = Integer.parseInt(scanner.next());
+                            pageNumMod = Integer.parseInt(scanner.nextLine());
 
                             break;
                         } catch (NumberFormatException e) {
@@ -109,10 +111,10 @@ public class Main {
                 case 4: /* Cancella un libro */
                     // Take title and author
                     System.out.println("Inserisci il titolo del libro a cui vuoi modificare le pagine: ");
-                    titleDel = scanner.next();
+                    titleDel = scanner.nextLine();
 
                     System.out.println("Inserisci il nome dell'autore del libro a cui vuoi modificare le pagine: ");
-                    authorDel = scanner.next();
+                    authorDel = scanner.nextLine();
 
                     if (delete(books, titleDel, authorDel)) {
                         System.out.println("Il libro e' stato eliminato");
@@ -122,18 +124,57 @@ public class Main {
                     }
 
                     break;
-                case 5:
+                case 5: /* Visuallizza libri di un autore */
 
                     System.out.println("Inserisci il nome dell'autore di cui vuoi vedere i libri: ");
-                    authorView = scanner.next();
+                    authorView = scanner.nextLine();
 
                     viewAuthor(books, authorView);
 
+                    break;
+                case 6: /* Visuallizza valore totale dei libri di un certo autore */
+
+                    System.out.println("Inserisci il nome dell'autore di cui vuoi vedere i libri: ");
+                    authorView = scanner.nextLine();
+
+                    double val;
+                    if ((val = getPriceOfAuthor(books, authorView)) == 0) {
+                        System.out.println("L'autore non ha libri in libreria");
+                        break;
+                    }
+
+                    System.out.println("Il valore totale dei libri che l'autore '" + authorView + "' ha in libreria e' " + val);
+
+                    break;
+                case 7: /* Visuallizza le posizioni nella mensola dei libri di un certo autore */
                     break;
                 default:
                     exit = true;
             }
         } while (!exit);
+    }
+
+    /**
+     * The method calculates the total price of all the books by a given author.
+     * If there isn't any book with the given author the method returns -1.
+     *
+     * @param books Array where to search for the books.
+     * @param author author to search for.
+     * @return -1 if there isn't any book with the given author, <br>
+     *         else return the total price of all the books by a given author.
+     */
+    private static double getPriceOfAuthor(Libro[] books, String author) {
+        double val = 0;
+
+        for (Libro book : books) {
+            if (book == null) break;
+
+            if (book.autore.equals(author)) {
+                val += book.numeroPagine * book.costoPagina;
+            }
+        }
+
+        return val;
     }
 
     private static boolean validateNewBook(Libro[] books, Libro newBook) {
