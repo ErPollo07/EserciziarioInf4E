@@ -152,7 +152,7 @@ public class Main {
 
                     int[] pos = getBookPosWithAuthor(books, authorView);
 
-                    if (pos[0] == null) {
+                    if (pos == null) {
                         System.out.println("L'autore '" + authorView + "' non ha libri in libreria");
                         break;
                     }
