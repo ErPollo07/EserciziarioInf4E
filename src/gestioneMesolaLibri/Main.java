@@ -154,7 +154,7 @@ public class Main {
 
                     int[] pos = getBookPosWithAuthor(books, authorView);
 
-                    if (pos[0] == -1) {
+                    if (pos == null) {
                         System.out.println("L'autore '" + authorView + "' non ha libri in libreria");
                         break;
                     }
@@ -177,13 +177,12 @@ public class Main {
     /**
      * The method returns an array of int which indicates the positions
      * in the given array of the books with the given author.
-     * If there isn't any books the given author the method returns
-     * an array with the first value set to -1
+     * If there isn't any books the given author the method returns null
      *
      * @param books Array where to search for the books.
      * @param author author to search for.
      * @return an array of position of the books that have the given author.
-     *         If there aren't books with the given author then it returns an array with the first value set to -1
+     *         If there aren't books with the given author then it returns null
      */
     private static int[] getBookPosWithAuthor(Libro[] books, String author) {
 
@@ -198,11 +197,7 @@ public class Main {
         // If the counter is 0 (so there isn't any book with the given author)
         // return an array with the first value equals to -1
         if (counter == 0) {
-            int[] p = new int[1];
-
-            p[0] = -1;
-
-            return p;
+            return null;
         }
 
         int[] pos = new int[counter];
