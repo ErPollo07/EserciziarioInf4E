@@ -1,5 +1,7 @@
-import frontScreen.FrontEnd;
-import mensola.Libro;
+package gestioneMesolaLibri;
+
+import gestioneMesolaLibri.frontScreen.FrontEnd;
+import gestioneMesolaLibri.mensola.Libro;
 import util.Tools;
 
 import java.util.Scanner;

@@ -1,7 +1,7 @@
-package frontScreen;
+package gestioneMesolaLibri.frontScreen;
 
-import mensola.Genere;
-import mensola.Libro;
+import gestioneMesolaLibri.mensola.Genere;
+import gestioneMesolaLibri.mensola.Libro;
 import util.Tools;
 
 import java.time.LocalDate;
