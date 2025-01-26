@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class FrontEnd {
 
-    public static Pilota getPilota(Scanner scanner) {
+    public static Pilota inserisciPilota(Scanner scanner) {
         String nome, cognome, nazionalita;
         int eta;
 

@@ -1,5 +1,7 @@
 package garaAutomobilistica;
 
+import com.google.gson.JsonObject;
+
 public class Pilota {
     private String nome;
     private String cognome;
@@ -52,6 +54,21 @@ public class Pilota {
         }
 
         return false;
+    }
+
+    public JsonObject toJson() {
+        JsonObject obj = new JsonObject();
+
+        obj.addProperty("nome", nome);
+        obj.addProperty("cognome", cognome);
+        obj.addProperty("nazionalita", nazionalita);
+        obj.addProperty("eta", eta);
+
+        return obj;
+    }
+
+    public String toCsv() {
+        return String.format("%s;%s;%s;%d", nome, cognome, nazionalita, eta);
     }
 
     @Override
