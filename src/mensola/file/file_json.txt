@@ -1,0 +1,8 @@
+[
+  {
+    "autore": "q",
+    "titolo": "a",
+    "nPagine": 4,
+    "tipo": "ROMANZO"
+  }
+]

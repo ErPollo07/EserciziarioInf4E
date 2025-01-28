@@ -51,6 +51,10 @@ public class Libro {
         return nPagine == libro.nPagine && Objects.equals(autore, libro.autore) && Objects.equals(titolo, libro.titolo) && tipo == libro.tipo;
     }
 
+    public String toCsv() {
+        return String.format("%s;%s;%d;%s;%.2f", titolo, autore, nPagine, tipo, prezzo(nPagine, COSTOPAGINE));
+    }
+
     @Override
     public String toString() {
         return String.format("titolo: %s; autore: %s; numero pagine: %d; tipo: %s, costo Libro: %.2f", titolo, autore, nPagine, tipo, prezzo(nPagine, COSTOPAGINE));

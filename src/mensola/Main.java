@@ -2,6 +2,7 @@ package mensola;
 
 import provaVerifica_09_11_2024.util.Tools;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -73,6 +74,9 @@ public class Main {
                 }
                 // Esci
                 default -> {
+                    System.out.println("Salvataggio di dati in corso ...");
+                    Saver.Csv.write("src/mensola/file/file", new ArrayList<>(mensola.getMensola().stream().map(Libro::toCsv).toList()));
+                    Saver.Json.write("src/mensola/file/file", mensola.getMensola());
                     System.out.println("Uscita dal programma");
                     exit = true;
                 }
