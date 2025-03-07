@@ -1,6 +1,4 @@
-package mensola2;
-
-import mensola2.libri.Libro;
+package solidi;
 
 import java.util.Scanner;
 
@@ -16,7 +14,7 @@ public class Tools {
         }
     }
 
-    public static void Wait(int attesa) {
+    public static void wait(int attesa) {
         try {
             Thread.sleep(attesa);
         } catch (InterruptedException e) {
@@ -24,7 +22,7 @@ public class Tools {
         }
     }
 
-    public static int menu(String[] opzioni, Scanner tastiera) {// parametri formali
+    public static int menu(String[] opzioni, Scanner scanner) {
         int scelta;
 
         do {
@@ -32,28 +30,17 @@ public class Tools {
             System.out.println(opzioni[0]);
             System.out.println("------------------");
             for (int i = 1; i < opzioni.length; i++) {
-                System.out.println("[" + i + "]" + " " + opzioni[i]);
+                System.out.println("[" + i + "]" + " - " + opzioni[i]);
             }
-            scelta = (Integer.parseInt(tastiera.nextLine()));
+
+            scelta = Integer.parseInt(scanner.nextLine());
+
             if ((scelta < 1) || (scelta > opzioni.length - 1)) {
                 System.out.println("Opzione Sbagliata");
-                Wait(2000);
             }
         }
         while ((scelta < 1) || (scelta > opzioni.length - 1));
 
         return scelta;
-    }
-
-    public static Libro leggiLibro(Scanner tastiera, boolean soluzioni) {
-        System.out.print("Inserisci l'autore del libro: ");
-        String autore = tastiera.nextLine();
-        System.out.print("Inserisci il titolo del libro: ");
-        String titolo = tastiera.nextLine();
-        System.out.print("Inserisci il numero di pagine del libro: ");
-        int nPagine = Integer.parseInt(tastiera.nextLine());
-
-        return new Libro(autore, titolo, nPagine);
-
     }
 }
